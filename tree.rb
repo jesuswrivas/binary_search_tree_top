@@ -75,6 +75,20 @@ class Tree
         
      end
 
+
+     def next_hight_node(key)
+        node_delete = self.search(key)
+        next_hight_node = node_delete.right
+
+        while next_hight_node.left != nil
+            next_hight_node = next_hight_node.left
+            
+        end
+        
+        return next_hight_node
+        
+     end
+
      
      def delete(key)
         node_delete = self.search(key)
@@ -93,8 +107,20 @@ class Tree
             else
                 parent.left = node_delete.only_child
             end
+
+        else
+            second_highest_node = self.delete(self.next_hight_node(node_delete.data).data)
+            second_highest_node.right = node_delete.right
+            second_highest_node.left = node_delete.left
+
+            if parent.right == node_delete
+                parent.right = second_highest_node
+            else
+                parent.left = second_highest_node
+            end
+
         end
-                  
+        return node_delete
      end
 
 
@@ -102,14 +128,24 @@ class Tree
 end
 
 
-
-
 newArray = [1,2,3,4,5,6,7]
 newTree = Tree.new(newArray)
-newTree.insert(22)
+newTree.insert(15)
 newTree.insert(33)
+newTree.insert(14)
+newTree.insert(13)
+newTree.insert(34)
+newTree.insert(35)
+newTree.insert(28)
 
 
 
-
+var7 = newTree.search(7)
+var28 = newTree.search(28)
+var14 = newTree.search(14)
+var13 = newTree.search(13)
+var33 = newTree.search(33)
+var28 = newTree.search(28)
+var34 = newTree.search(34)
+var35 = newTree.search(35)
 
