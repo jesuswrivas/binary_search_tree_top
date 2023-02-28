@@ -124,28 +124,28 @@ class Tree
      end
 
 
-
+     def level_order(root = self.root)
+       
+        queue = []
+        list = []
+        queue << root
+ 
+        until queue.length == 0
+            queue << queue[0].left if queue[0].left             
+            queue << queue[0].right if queue[0].right
+            current_value = (queue.shift)
+            list << current_value
+            yield(current_value) if block_given?
+        end
+       
+        list unless block_given?
+                             
+    end
 end
+
 
 
 newArray = [1,2,3,4,5,6,7]
 newTree = Tree.new(newArray)
 newTree.insert(15)
 newTree.insert(33)
-newTree.insert(14)
-newTree.insert(13)
-newTree.insert(34)
-newTree.insert(35)
-newTree.insert(28)
-
-
-
-var7 = newTree.search(7)
-var28 = newTree.search(28)
-var14 = newTree.search(14)
-var13 = newTree.search(13)
-var33 = newTree.search(33)
-var28 = newTree.search(28)
-var34 = newTree.search(34)
-var35 = newTree.search(35)
-
