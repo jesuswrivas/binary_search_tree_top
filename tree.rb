@@ -141,7 +141,40 @@ class Tree
         list unless block_given?
                              
     end
+
+    def preorder(root = self.root,&block)
+
+        return nil if root == nil
+        
+        block.call(root)
+        preorder(root.left, &block)
+        preorder(root.right, &block)
+
+    end
+
+    def inorder(root = self.root,&block)
+
+        return nil if root == nil
+        
+        inorder(root.left, &block)
+        block.call(root)
+        inorder(root.right, &block)
+
+    end
+
+    def postorder(root = self.root,&block)
+
+        return nil if root == nil
+               
+        postorder(root.left, &block)
+        postorder(root.right, &block)
+        block.call(root)
+
+    end
+
+
 end
+
 
 
 
@@ -149,3 +182,6 @@ newArray = [1,2,3,4,5,6,7]
 newTree = Tree.new(newArray)
 newTree.insert(15)
 newTree.insert(33)
+newTree.postorder{|x| puts x.data}
+newTree.pretty_print
+
