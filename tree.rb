@@ -30,7 +30,7 @@ class Tree
       end
 
 
-    def search(root,key)
+    def search(root = self.root,key)
         #Base Case
         return root if root == nil || root.data == key
         #Recursion
@@ -38,7 +38,7 @@ class Tree
         return search(root.right,key) if root.data < key
     end
 
-    def insert(root,key)
+    def insert(root= self.root,key)
 
         if root == nil
             return Node.new(key)    
@@ -58,6 +58,47 @@ class Tree
     end
 
 
+#This function returns the antecessor of the key
+    def antecessor(root= self.root, key)
+         #Base Case
+         if root.right != nil
+            return root if root.right.data == key 
+         end
+
+         if root.left != nil
+            return root if root.left.data == key 
+         end
+         
+         #Recursion
+         return antecessor(root.left,key) if root.data > key
+         return antecessor(root.right,key) if root.data < key
+        
+     end
+
+     
+     def delete(key)
+        node_delete = self.search(key)
+        parent = self.antecessor(node_delete.data)
+       
+        if node_delete.leaf?
+            if parent.right == node_delete
+                parent.right = nil
+            else
+                parent.left = nil
+            end
+        
+        elsif node_delete.one_child?
+            if parent.right == node_delete
+                parent.right = node_delete.only_child
+            else
+                parent.left = node_delete.only_child
+            end
+        end
+                  
+     end
+
+
+
 end
 
 
@@ -65,7 +106,9 @@ end
 
 newArray = [1,2,3,4,5,6,7]
 newTree = Tree.new(newArray)
-newTree.insert(newTree.root, 12)
+newTree.insert(22)
+newTree.insert(33)
+
 
 
 
