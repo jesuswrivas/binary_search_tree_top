@@ -173,6 +173,41 @@ class Tree
     end
 
 
+    def height(root = self.root, counter = -1)
+
+        counter += 1
+
+        if root == nil
+          return counter    
+        end
+      
+        left_height = height(root.left, counter)
+        right_height = height(root.right, counter)
+      
+        return [left_height, right_height].max
+      end
+
+
+
+    def depth(root = self.root, counter = 0, node)
+        counter += 1
+
+        if root == nil
+            return 0
+        end
+
+        if root == node
+            return counter
+        end
+    
+        left = depth(root.left, counter, node)
+        right = depth(root.right, counter, node)
+
+        return [left, right].max
+
+    end
+
+
 end
 
 
@@ -182,6 +217,11 @@ newArray = [1,2,3,4,5,6,7]
 newTree = Tree.new(newArray)
 newTree.insert(15)
 newTree.insert(33)
-newTree.postorder{|x| puts x.data}
+
 newTree.pretty_print
+
+var7 = newTree.search(33)
+auxArray = newTree.depth(var7)
+p auxArray
+
 
