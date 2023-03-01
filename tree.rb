@@ -11,7 +11,9 @@ class Tree
 
     def build_tree(array)
         #We remove the duplicates and sort
-        #array.uniq!.sort!
+        array.uniq!
+        array.sort!
+
         #Base case for our recursive function
         return nil if array.length == 0
         
@@ -216,6 +218,16 @@ class Tree
     end
 
 
+    def rebalance
+        auxArray = []
+        self.preorder {|x| auxArray << x.data}
+        auxArray.uniq!
+        auxArray.sort!
+        self.root = self.build_tree(auxArray)
+
+    end
+
+
 end
 
 
@@ -229,5 +241,5 @@ newTree.insert(33)
 newTree.pretty_print
 
 var7 = newTree.search(33)
-p newTree.balanced?
-
+newTree.rebalance
+newTree.pretty_print
