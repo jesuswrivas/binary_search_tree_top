@@ -207,6 +207,14 @@ class Tree
 
     end
 
+    def balanced?
+        left_side = self.height(self.root.left)
+        right_side = self.height(self.root.right)
+
+        return (left_side - right_side).abs <= 1
+
+    end
+
 
 end
 
@@ -221,7 +229,5 @@ newTree.insert(33)
 newTree.pretty_print
 
 var7 = newTree.search(33)
-auxArray = newTree.depth(var7)
-p auxArray
-
+p newTree.balanced?
 
