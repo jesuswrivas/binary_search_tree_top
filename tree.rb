@@ -42,6 +42,9 @@ class Tree
 
     def insert(root= self.root,key)
 
+        #Checking if the key(node.data) is already on the tree. We cant have duplicates on this exercise
+        return nil if self.search(key).data == key
+
         if root == nil
             return Node.new(key)    
 
@@ -95,21 +98,21 @@ class Tree
      def delete(key)
         node_delete = self.search(key)
         parent = self.antecessor(node_delete.data)
-       
+       #Case when the node to be deleted is a leaf node
         if node_delete.leaf?
             if parent.right == node_delete
                 parent.right = nil
             else
                 parent.left = nil
             end
-        
+        #Case when the node has only one child
         elsif node_delete.one_child?
             if parent.right == node_delete
                 parent.right = node_delete.only_child
             else
                 parent.left = node_delete.only_child
             end
-
+        #Case when the node to be deleted has two childs
         else
             second_highest_node = self.delete(self.next_hight_node(node_delete.data).data)
             second_highest_node.right = node_delete.right
@@ -231,15 +234,3 @@ class Tree
 end
 
 
-
-
-newArray = [1,2,3,4,5,6,7]
-newTree = Tree.new(newArray)
-newTree.insert(15)
-newTree.insert(33)
-
-newTree.pretty_print
-
-var7 = newTree.search(33)
-newTree.rebalance
-newTree.pretty_print
